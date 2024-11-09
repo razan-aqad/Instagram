@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مكتبة الكتب</title>
+    <style>
+        /* بعض التنسيقات الأساسية */
+        .book-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="search-bar">
+        <input type="text" class="search-input" placeholder="Search by book title, author name" />
+        <button class="search-button">Search</button>
+    </div>
+
+    <div class="results">
+        <h2>الكتب المقروءة:</h2>
+        <div class="read-books"></div>
+        
+        <h2>الكتب غير المقروءة:</h2>
+        <div class="unread-books"></div>
+    </div>
+
+    <script>
+        // دالة لجلب البيانات من ملف db
+        async function fetchBooks() {
+            try {
+                const response = await fetch('http://localhost:3000/books'); // تأكد من تعديل الرابط إلى المكان الصحيح
+                const data = await response.json();
+                return data.books; // استرجاع مصفوفة الكتب
+            } catch (error) {
+                console.error('Error fetching books:', error);
+            }
+        }
+
+        // دالة لعرض الكتب المقروءة
+        async function showReadBooks() {
+            const books = await fetchBooks();
+            const readBooksContainer = document.querySelector('.read-books');
+            readBooksContainer.innerHTML = ''; // مسح المحتوى السابق
+
+            const readBooks = books.filter(book => book.isReading === "true");
+            readBooks.forEach(book => {
+                readBooksContainer.innerHTML += `
+                    <div class="book-card">
+                        <h3>${book.title}</h3>
+                        <p>المؤلف: ${book.author}</p>
+                    </div>
+                `;
+            });
+        }
+
+        // دالة لعرض الكتب غير المقروءة
+        async function showUnreadBooks() {
+            const books = await fetchBooks();
+            const unreadBooksContainer = document.querySelector('.unread-books');
+            unreadBooksContainer.innerHTML = ''; // مسح المحتوى السابق
+
+            const unreadBooks = books.filter(book => book.isReading === "false");
+            unreadBooks.forEach(book => {
+                unreadBooksContainer.innerHTML += `
+                    <div class="book-card">
+                        <h3>${book.title}</h3>
+                        <p>المؤلف: ${book.author}</p>
+                    </div>
+                `;
+            });
+        }
+
+        // دالة البحث
+        document.querySelector('.search-button').addEventListener('click', async function() {
+            const searchInput = document.querySelector('.search-input').value.toLowerCase();
+            const books = await fetchBooks();
+            const resultsContainer = document.querySelector('.results');
+            resultsContainer.innerHTML = ''; // مسح المحتوى السابق
+
+            const foundBooks = books.filter(book => 
+                book.title.toLowerCase().includes(searchInput) || 
+                book.author.toLowerCase().includes(searchInput)
+            );
+
+            if (foundBooks.length > 0) {
+                foundBooks.forEach(book => {
+                    resultsContainer.innerHTML += `
+                        <div class="book-card">
+                            <h3>${book.title}</h3>
+                            <p>المؤلف: ${book.author}</p>
+                        </div>
+                    `;
+                });
+            } else {
+                resultsContainer.innerHTML = '<p>لا توجد نتائج مطابقة.</p>';
+            }
+        });
+
+        // استدعاء الدوال عند تحميل الصفحة
+        window.onload = async () => {
+            await showReadBooks();
+            await showUnreadBooks();
+        };
+    </script>
+</body>
+</html>

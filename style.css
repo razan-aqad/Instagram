@@ -1,0 +1,173 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+*{
+    font-family: "Open Sans", sans-serif;
+}
+.container {
+    width: 400px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    border: 1px solid gray;
+    position: relative;
+}
+
+.container nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.right {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    list-style: none;
+}
+ul li i {
+    font-size: 20px;
+}
+
+.container .scroll{
+    display: flex;
+    flex-direction: row;
+    padding: 8px 15px 30px 15px;
+    border-bottom: 1px solid rgb(169, 168, 168);
+    overflow: hidden;
+
+}
+.container .scroll .story{
+    text-align: center;
+    padding: 8px;
+
+}
+.container .scroll img{
+    object-fit: cover;
+    margin: 0%;
+    border-radius: 50%;
+    border: double 4px transparent;
+    background-image: linear-gradient(white, white), radial-gradient(circle at top left, #f00,#3020ff);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    
+}
+.container .scroll p{
+    margin: 0%;
+    font-size: 12px;
+}
+
+
+/* main */
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 15px 15px 15px;
+    align-items: center;
+
+}
+.list{
+    height: 100%;
+    overflow: auto;
+}
+
+.list header .tittle {
+    display: flex;
+    align-items: center;
+
+}
+
+.list header .tittle img {
+    border-radius: 50%;
+    border: double 4px transparent;
+    background-image: linear-gradient(white, white), radial-gradient(circle at top left, #f00,#3020ff);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    object-fit: cover;
+}
+
+.list header .sub-tittle {
+    display: flex;
+    flex-direction: column;
+    margin-left: 8px;
+
+}
+.list header .sub-tittle .name{
+    font-size: 16px;
+}
+.list header .sub-tittle .sub{
+    color: lightslategray;
+    font-size: 11px;
+}
+header i {
+    font-size: 20px;
+    cursor: pointer;
+
+}
+
+
+/* content */
+
+.list .content img{
+    width: 100%;
+}
+.list .content .under-photo .right li:last-child{
+    margin-left: auto;
+}
+.list .content .under-photo .right{
+    padding: 0 10px;
+
+}
+.list .content p.userName{
+    margin-bottom: 8px;
+}
+.list .content p{
+    font-size: 14px;
+    padding: 0 8px;
+}
+.list .content p span.hash{
+    text-decoration: underline;
+    color: blue;
+}
+.list .content p.comments{
+    padding: 0 10px;
+    color: lightslategray;
+    margin: 0;
+    font-size: 13px;
+}
+.list .content p.comments span{
+    color: rgb(71, 74, 78);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #c3c8ca;
+    border-radius: 20px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #959c9d;
+}
